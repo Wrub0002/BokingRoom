@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book {{ room.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Book {{ room.name }}</h1>
+
+    <div class="booking-container">
+        <!-- Room Details Section -->
+        <div class="room-details">
+            <img src="{{ url_for('static', filename='images/' + room.image_url) }}"
+                 alt="Room Image" class="room-image"
+                 onerror="this.src='{{ url_for('static', filename='images/default.jpg') }}';">
+            <p>{{ room.features }}</p>
+            <p>Price: ${{ room.price }}</p>
+            <div class="home-btn-container">
+                <a href="{{ url_for('home') }}" class="back-btn">Back to Home</a>
+            </div>
+        </div>
+
+        <!-- Booking Form Section -->
+        <div class="booking-form">
+            <form action="{{ url_for('book', room_id=room.id) }}" method="post">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="slot">Select Time Slot:</label>
+                <select id="slot" name="slot" required>
+                    <option value="Morning">Morning (8 AM - 12 PM)</option>
+                    <option value="Afternoon">Afternoon (12 PM - 4 PM)</option>
+                    <option value="Evening">Evening (4 PM - 8 PM)</option>
+                    <option value="Night">Night (8 PM - 12 AM)</option>
+                </select>
+
+                <button type="submit">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
